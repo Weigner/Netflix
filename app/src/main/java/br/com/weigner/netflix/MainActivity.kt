@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -30,20 +31,20 @@ class MainActivity : AppCompatActivity() {
         var i = 0
         while (i < 30) {
             var movie = Movie()
-            movie.setCoverUrl("abc$i")
+            movie.setCoverUrl(R.drawable.movie)
             movies.add(movie)
             i++
         }
 
         mainAdapter = MainAdapter(movies)
-        recyclerView.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
+        recyclerView.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
         recyclerView.adapter = mainAdapter
     }
 }
 
 private class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-    var textViewUrl: TextView = itemView.findViewById<TextView>(R.id.text_view_url)
+    var imageViewCover: ImageView = itemView.findViewById(R.id.image_view_cover)
 
 }
 
@@ -60,7 +61,7 @@ private class MainAdapter(movies: MutableList<Movie>) : RecyclerView.Adapter<Mov
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
         var movie = movies.get(position)
-        holder.textViewUrl.text = movie.getCoverUrl()
+        holder.imageViewCover.setImageResource(movie.getCoverUrl())
     }
 
     override fun getItemCount(): Int {
