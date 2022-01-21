@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
             var i = 0
             while (i < 30) {
                 var movie = Movie()
-                movie.setCoverUrl(R.drawable.movie)
+                movie.setCoverUrl(R.drawable.placeholder_bg)
                 movies.add(movie)
                 i++
             }
