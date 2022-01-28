@@ -1,9 +1,9 @@
 package br.com.weigner.netflix.model
 
-class Category {
+class CategoryModel {
 
     private var name = ""
-    private lateinit var movies: List<Movie>
+    private lateinit var movies: List<MovieModel>
 
     fun getName(): String {
         return name
@@ -13,11 +13,11 @@ class Category {
         this.name = name
     }
 
-    fun getMovies(): List<Movie> {
+    fun getMovies(): List<MovieModel> {
         return movies
     }
 
-    fun setMovies(movies: List<Movie>) {
+    fun setMovies(movies: List<MovieModel>) {
         this.movies = movies
     }
 

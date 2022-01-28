@@ -5,8 +5,8 @@ import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import br.com.weigner.netflix.adapter.MainAdapter
-import br.com.weigner.netflix.model.Category
-import br.com.weigner.netflix.model.Movie
+import br.com.weigner.netflix.model.CategoryModel
+import br.com.weigner.netflix.model.MovieModel
 
 class MainActivity : AppCompatActivity() {
 
@@ -18,19 +18,19 @@ class MainActivity : AppCompatActivity() {
 
         val recyclerView: RecyclerView = findViewById(R.id.recycler_view_main)
 
-        val categories = mutableListOf<Category>()
+        val categories = mutableListOf<CategoryModel>()
 
         var j = 0
         while (j < 10) {
-            val category = Category()
+            val category = CategoryModel()
             category.setName("cat $j")
             j++
 
-            val movies = mutableListOf<Movie>()
+            val movies = mutableListOf<MovieModel>()
             var i = 0
             while (i < 30) {
-                var movie = Movie()
-                movie.setCoverUrl(R.drawable.placeholder_bg)
+                var movie = MovieModel()
+                movie.setCoverUrl("R.drawable.placeholder_bg")
                 movies.add(movie)
                 i++
             }

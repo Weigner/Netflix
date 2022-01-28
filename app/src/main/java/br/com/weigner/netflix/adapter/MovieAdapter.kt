@@ -4,13 +4,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import br.com.weigner.netflix.R
-import br.com.weigner.netflix.model.Movie
+import br.com.weigner.netflix.model.MovieModel
 import br.com.weigner.netflix.viewHolder.MovieViewHolder
 
-class MovieAdapter(movies: MutableList<Movie>) :
+class MovieAdapter(movies: MutableList<MovieModel>) :
     RecyclerView.Adapter<MovieViewHolder>() {
 
-    private var movies: List<Movie> = movies
+    private var movies: List<MovieModel> = movies
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         val view = LayoutInflater.from(parent.context)

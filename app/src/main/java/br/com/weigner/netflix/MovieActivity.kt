@@ -10,7 +10,7 @@ import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import br.com.weigner.netflix.model.Movie
+import br.com.weigner.netflix.model.MovieModel
 
 class MovieActivity : AppCompatActivity() {
 
@@ -40,10 +40,10 @@ class MovieActivity : AppCompatActivity() {
         textDescription.text = "Da Warner Bros. Pictures chega THE BATMAN com o realizador Matt Reeves no comando e protagonizado por Robert Pattinson no duplo papel de detetive de Gotham City e do seu alter ego, o bilionário solitário Bruce Wayne."
         textCast.text = getString(R.string.cast, "Robert Pattinson" + "Paul Dano" + "Colin Farrell" + "Jeffrey Wright" + "Andy Serkis")
 
-        var movies: MutableList<Movie> = mutableListOf()
+        var movies: MutableList<MovieModel> = mutableListOf()
         var i = 0
         while (i < 30) {
-            var movie = Movie()
+            var movie = MovieModel()
             movies.add(movie)
             i++
         }
@@ -69,10 +69,10 @@ class MovieSimilarViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
 }
 
-class MovieSimilarAdapter(movies: MutableList<Movie>) :
+class MovieSimilarAdapter(movies: MutableList<MovieModel>) :
     RecyclerView.Adapter<MovieSimilarViewHolder>() {
 
-    private var movies: List<Movie> = movies
+    private var movies: List<MovieModel> = movies
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieSimilarViewHolder {
         val view = LayoutInflater.from(parent.context)
