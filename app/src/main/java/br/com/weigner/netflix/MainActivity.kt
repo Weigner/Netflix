@@ -22,9 +22,8 @@ class MainActivity : AppCompatActivity() {
 
         var j = 0
         while (j < 10) {
-            var category = Category()
+            val category = Category()
             category.setName("cat $j")
-            categories.add(category)
             j++
 
             val movies = mutableListOf<Movie>()
