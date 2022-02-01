@@ -23,9 +23,9 @@ class MainAdapter(categories: MutableList<CategoryModel>) :
 
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
         var category = categories.get(position)
-        holder.textTitle.text = category.getName()
+        holder.textTitle.text = category.name
         holder.recyclerViewMovie.adapter =
-            MovieAdapter(category.getMovies() as MutableList<MovieModel>)
+            MovieAdapter(category.movies as MutableList<MovieModel>)
         holder.recyclerViewMovie.layoutManager =
             LinearLayoutManager(null, RecyclerView.HORIZONTAL, false)
     }

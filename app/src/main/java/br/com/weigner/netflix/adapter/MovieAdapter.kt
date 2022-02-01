@@ -21,7 +21,7 @@ class MovieAdapter(movies: MutableList<MovieModel>) :
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
         var movie = movies.get(position)
-        holder.imageViewCover.setImageResource(movie.getCoverUrl())
+//        holder.imageViewCover.setImageResource(movie.getCoverUrl())
     }
 
     override fun getItemCount(): Int {

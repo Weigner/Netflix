@@ -23,18 +23,18 @@ class MainActivity : AppCompatActivity() {
         var j = 0
         while (j < 10) {
             val category = CategoryModel()
-            category.setName("cat $j")
+            category.name = "cat $j"
             j++
 
             val movies = mutableListOf<MovieModel>()
             var i = 0
             while (i < 30) {
                 var movie = MovieModel()
-                movie.setCoverUrl("R.drawable.placeholder_bg")
+                movie.coverUrl = "R.drawable.placeholder_bg"
                 movies.add(movie)
                 i++
             }
-            category.setMovies(movies)
+            category.movies = movies
             categories.add(category)
         }
         /*for (movie in movies) {
