@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import br.com.weigner.netflix.adapter.MainAdapter
 import br.com.weigner.netflix.model.CategoryModel
 import br.com.weigner.netflix.model.MovieModel
+import br.com.weigner.netflix.util.JsonDownloadTask
 
 class MainActivity : AppCompatActivity() {
 
@@ -46,6 +47,8 @@ class MainActivity : AppCompatActivity() {
         mainAdapter = MainAdapter(categories)
         recyclerView.layoutManager = LinearLayoutManager(baseContext, RecyclerView.VERTICAL, false)
         recyclerView.adapter = mainAdapter
+
+        JsonDownloadTask(this).execute("https://tiagoaguiar.co/api/netflix/home")
     }
 }
 
