@@ -16,6 +16,7 @@ import br.com.weigner.netflix.adapter.MovieAdapter
 import br.com.weigner.netflix.model.MovieDetail
 import br.com.weigner.netflix.model.MovieModel
 import br.com.weigner.netflix.listeners.MovieDetailLoader
+import br.com.weigner.netflix.util.ImageDownloaderTask
 import br.com.weigner.netflix.util.MovieDetailTask
 
 class MovieActivity : AppCompatActivity(), MovieDetailLoader {
@@ -24,7 +25,7 @@ class MovieActivity : AppCompatActivity(), MovieDetailLoader {
     private lateinit var textDescription: TextView
     private lateinit var textCast: TextView
     private lateinit var recyclerView: RecyclerView
-    private lateinit var movieAdapter: MovieAdapter
+    private lateinit var movieSimilarAdapter: MovieSimilarAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,8 +46,8 @@ class MovieActivity : AppCompatActivity(), MovieDetailLoader {
 
         var movies: MutableList<MovieModel> = mutableListOf()
 
-        movieAdapter = MovieAdapter(movies, this)
-        recyclerView.adapter = movieAdapter
+        movieSimilarAdapter = MovieSimilarAdapter(movies)
+        recyclerView.adapter = movieSimilarAdapter
 //        recyclerView.adapter = MovieSimilarAdapter(movies)
         recyclerView.layoutManager = GridLayoutManager(this, 3)
 
@@ -72,8 +73,8 @@ class MovieActivity : AppCompatActivity(), MovieDetailLoader {
         textDescription.text = movieDetail.movie.description
         textCast.text = movieDetail.movie.cast
 
-        movieAdapter.setMovies(movieDetail.moviesSimilar)
-        movieAdapter.notifyDataSetChanged()
+        movieSimilarAdapter.setMovies(movieDetail.moviesSimilar)
+        movieSimilarAdapter.notifyDataSetChanged()
     }
 }
 
@@ -86,7 +87,12 @@ class MoviesSimilarViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView
 class MovieSimilarAdapter(movies: MutableList<MovieModel>) :
     RecyclerView.Adapter<MoviesSimilarViewHolder>() {
 
-    private var movies: List<MovieModel> = movies
+    private var movies: MutableList<MovieModel> = movies
+
+    fun setMovies(movies: MutableList<MovieModel>){
+        this.movies.clear()
+        this.movies.addAll(movies)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MoviesSimilarViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -96,7 +102,8 @@ class MovieSimilarAdapter(movies: MutableList<MovieModel>) :
     }
 
     override fun onBindViewHolder(holder: MoviesSimilarViewHolder, position: Int) {
-        var movie = movies.get(position)
+        var movie = movies[position]
+        ImageDownloaderTask(holder.imageViewCover).execute(movie.coverUrl)
 //        holder.imageViewCover.setImageResource(movie.getCoverUrl())
     }
 

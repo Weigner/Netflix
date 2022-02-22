@@ -15,12 +15,7 @@ import br.com.weigner.netflix.viewHolder.MovieViewHolder
 class MovieAdapter(movies: MutableList<MovieModel>, private val context: Context) :
     RecyclerView.Adapter<MovieViewHolder>(), OnItemClickListener {
 
-    private var movies: MutableList<MovieModel> = movies
-
-    fun setMovies(movies: MutableList<MovieModel>){
-        this.movies.clear()
-        this.movies.addAll(movies)
-    }
+    private var movies: List<MovieModel> = movies
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         val view = LayoutInflater.from(parent.context)
