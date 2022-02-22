@@ -2,7 +2,7 @@ package br.com.weigner.netflix.util
 
 import android.os.AsyncTask
 import android.util.Log
-import br.com.weigner.netflix.MainActivity
+import br.com.weigner.netflix.listeners.CategoryLoader
 import br.com.weigner.netflix.model.CategoryModel
 import br.com.weigner.netflix.model.MovieModel
 import org.json.JSONObject
@@ -14,8 +14,10 @@ import java.net.HttpURLConnection
 import java.net.MalformedURLException
 import java.net.URL
 
-class JsonDownloadTask(mainActivity: MainActivity) :
+class CategoryJsonDownloadTask :
     AsyncTask<String?, Void?, List<CategoryModel>?>() {
+
+    private lateinit var categoryLoader: CategoryLoader
 
     override fun onPreExecute() {
         super.onPreExecute()
@@ -56,6 +58,9 @@ class JsonDownloadTask(mainActivity: MainActivity) :
 
     override fun onPostExecute(result: List<CategoryModel>?) {
         super.onPostExecute(result)
+        if (result != null) {
+            categoryLoader.onResult(result)
+        }
     }
 
     private fun toString(inputStream: InputStream): String {
@@ -86,7 +91,10 @@ class JsonDownloadTask(mainActivity: MainActivity) :
             var j = 0
             while (j < movieArray.length()) {
                 val movieObj = MovieModel()
+                var id = movieArray.getJSONObject(j).getInt("id")
+
                 movieObj.coverUrl = movieArray.getJSONObject(j).getString("cover_url")
+                movieObj.id = id
 
                 movies.add(movieObj)
                 j++
@@ -101,5 +109,9 @@ class JsonDownloadTask(mainActivity: MainActivity) :
         }
 
         return categories
+    }
+
+    fun setCategoryLoader(categoryLoader: CategoryLoader){
+        this.categoryLoader = categoryLoader
     }
 }
