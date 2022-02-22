@@ -1,15 +1,16 @@
 package br.com.weigner.netflix
 
+import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import br.com.weigner.netflix.adapter.MainAdapter
 import br.com.weigner.netflix.model.CategoryModel
-import br.com.weigner.netflix.model.MovieModel
-import br.com.weigner.netflix.util.JsonDownloadTask
+import br.com.weigner.netflix.util.CategoryJsonDownloadTask
+import br.com.weigner.netflix.listeners.CategoryLoader
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), CategoryLoader {
 
     private lateinit var mainAdapter: MainAdapter
 
@@ -21,34 +22,19 @@ class MainActivity : AppCompatActivity() {
 
         val categories = mutableListOf<CategoryModel>()
 
-        var j = 0
-        while (j < 10) {
-            val category = CategoryModel()
-            category.name = "cat $j"
-            j++
-
-            val movies = mutableListOf<MovieModel>()
-            var i = 0
-            while (i < 30) {
-                var movie = MovieModel()
-                movie.coverUrl = "R.drawable.placeholder_bg"
-                movies.add(movie)
-                i++
-            }
-            category.movies = movies
-            categories.add(category)
-        }
-        /*for (movie in movies) {
-            var movie = Movie()
-            movie.setCoverUrl("abc")
-            movies.add(movie)
-        }*/
-
-        mainAdapter = MainAdapter(categories)
+        mainAdapter = MainAdapter(categories, this)
         recyclerView.layoutManager = LinearLayoutManager(baseContext, RecyclerView.VERTICAL, false)
         recyclerView.adapter = mainAdapter
 
-        JsonDownloadTask(this).execute("https://tiagoaguiar.co/api/netflix/home")
+        val categoryJsonDownloadTask = CategoryJsonDownloadTask()
+        categoryJsonDownloadTask.setCategoryLoader(this)
+        categoryJsonDownloadTask.execute("https://tiagoaguiar.co/api/netflix/home")
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    override fun onResult(categories: List<CategoryModel>) {
+        mainAdapter.setCategories(categories)
+        mainAdapter.notifyDataSetChanged()
     }
 }
 
