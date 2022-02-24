@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import br.com.weigner.netflix.MovieActivity
 import br.com.weigner.netflix.R
@@ -34,8 +35,12 @@ class MovieAdapter(movies: MutableList<MovieModel>, private val context: Context
     }
 
     override fun onClick(position: Int) {
-        val intent = Intent(context, MovieActivity::class.java)
-        intent.putExtra("id", movies[position].id)
-        context.startActivity(intent)
+        if (movies[position].id <= 3) {
+            val intent = Intent(context, MovieActivity::class.java)
+            intent.putExtra("id", movies[position].id)
+            context.startActivity(intent)
+        } else {
+            Toast.makeText(context, "Filme indisponivel no servidor", Toast.LENGTH_SHORT).show()
+        }
     }
 }
