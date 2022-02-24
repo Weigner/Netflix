@@ -7,7 +7,8 @@ import br.com.weigner.netflix.R
 
 class CategoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-    val textTitle = itemView.findViewById<TextView>(R.id.text_view_title)
-    val recyclerViewMovie = itemView.findViewById<RecyclerView>(R.id.recycler_view_movie)
+    val textTitle: TextView = itemView.findViewById<TextView>(R.id.text_view_title)
+    val recyclerViewMovie: RecyclerView =
+        itemView.findViewById<RecyclerView>(R.id.recycler_view_movie)
 
 }

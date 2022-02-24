@@ -22,6 +22,7 @@ class MovieDetailTask(val context: Context) :
 
     override fun onPreExecute() {
         super.onPreExecute()
+        //TODO()
     }
 
     override fun doInBackground(vararg url: String?): MovieDetail? {
@@ -103,7 +104,7 @@ class MovieDetailTask(val context: Context) :
         return MovieDetail(movie, movies)
     }
 
-    fun setMovieDetailLoader(movieDetailLoader: MovieDetailLoader){
+    fun setMovieDetailLoader(movieDetailLoader: MovieDetailLoader) {
         this.movieDetailLoader = movieDetailLoader
     }
 

@@ -12,7 +12,7 @@ class MovieViewHolder(itemView: View, onItemClickListener: OnItemClickListener) 
     val imageViewCover: ImageView = itemView.findViewById(R.id.image_view_cover)
 
     init {
-        itemView.setOnClickListener{
+        itemView.setOnClickListener {
             onItemClickListener.onClick(adapterPosition)
         }
     }

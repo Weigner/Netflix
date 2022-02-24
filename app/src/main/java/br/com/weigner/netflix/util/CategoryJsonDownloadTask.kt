@@ -111,7 +111,7 @@ class CategoryJsonDownloadTask :
         return categories
     }
 
-    fun setCategoryLoader(categoryLoader: CategoryLoader){
+    fun setCategoryLoader(categoryLoader: CategoryLoader) {
         this.categoryLoader = categoryLoader
     }
 }
