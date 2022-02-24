@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Adapter
@@ -68,6 +69,12 @@ class MovieActivity : AppCompatActivity(), MovieDetailLoader {
         val movieCover: Drawable? = ContextCompat.getDrawable(this, R.drawable.movie)
         drawable?.setDrawableByLayerId(R.id.cover_drewble, movieCover)
         (findViewById<ImageView>(R.id.image_view_cover)).setImageDrawable(drawable)*/
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == android.R.id.home)
+            finish()
+        return super.onOptionsItemSelected(item)
     }
 
     @SuppressLint("NotifyDataSetChanged")
