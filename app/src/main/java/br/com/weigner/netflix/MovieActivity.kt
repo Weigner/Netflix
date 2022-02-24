@@ -24,6 +24,7 @@ class MovieActivity : AppCompatActivity(), MovieDetailLoader {
     private lateinit var textTitle: TextView
     private lateinit var textDescription: TextView
     private lateinit var textCast: TextView
+    private lateinit var imageCover: ImageView
     private lateinit var recyclerView: RecyclerView
     private lateinit var movieSimilarAdapter: MovieSimilarAdapter
 
@@ -34,7 +35,9 @@ class MovieActivity : AppCompatActivity(), MovieDetailLoader {
         textTitle = findViewById(R.id.text_view_title)
         textDescription = findViewById(R.id.text_view_description)
         textCast = findViewById(R.id.text_view_cast)
+        imageCover = findViewById(R.id.image_view_cover)
         recyclerView = findViewById(R.id.recycler_view_similar)
+
 
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
@@ -73,6 +76,10 @@ class MovieActivity : AppCompatActivity(), MovieDetailLoader {
         textDescription.text = movieDetail.movie.description
         textCast.text = movieDetail.movie.cast
 
+        val imageDownloaderTask = ImageDownloaderTask(imageCover)
+        imageDownloaderTask.setShadowEnabled(true)
+        imageDownloaderTask.execute(movieDetail.movie.coverUrl)
+
         movieSimilarAdapter.setMovies(movieDetail.moviesSimilar)
         movieSimilarAdapter.notifyDataSetChanged()
     }
@@ -84,10 +91,8 @@ class MoviesSimilarViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView
 
 }
 
-class MovieSimilarAdapter(movies: MutableList<MovieModel>) :
+class MovieSimilarAdapter(private var movies: MutableList<MovieModel>) :
     RecyclerView.Adapter<MoviesSimilarViewHolder>() {
-
-    private var movies: MutableList<MovieModel> = movies
 
     fun setMovies(movies: MutableList<MovieModel>){
         this.movies.clear()
@@ -102,7 +107,7 @@ class MovieSimilarAdapter(movies: MutableList<MovieModel>) :
     }
 
     override fun onBindViewHolder(holder: MoviesSimilarViewHolder, position: Int) {
-        var movie = movies[position]
+        val movie = movies[position]
         ImageDownloaderTask(holder.imageViewCover).execute(movie.coverUrl)
 //        holder.imageViewCover.setImageResource(movie.getCoverUrl())
     }
