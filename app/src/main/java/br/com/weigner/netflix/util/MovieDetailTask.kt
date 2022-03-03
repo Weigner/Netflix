@@ -1,8 +1,11 @@
 package br.com.weigner.netflix.util
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.AsyncTask
 import android.util.Log
+import android.view.View
+import android.widget.ProgressBar
 import br.com.weigner.netflix.listeners.MovieDetailLoader
 import br.com.weigner.netflix.model.MovieDetail
 import br.com.weigner.netflix.model.MovieModel
@@ -15,14 +18,14 @@ import java.net.HttpURLConnection
 import java.net.MalformedURLException
 import java.net.URL
 
-class MovieDetailTask(val context: Context) :
+class MovieDetailTask(val context: Context, @SuppressLint("StaticFieldLeak") val progressBar: ProgressBar) :
     AsyncTask<String?, Void?, MovieDetail>() {
 
     private lateinit var movieDetailLoader: MovieDetailLoader
 
     override fun onPreExecute() {
         super.onPreExecute()
-        //TODO()
+        progressBar.visibility = View.VISIBLE
     }
 
     override fun doInBackground(vararg url: String?): MovieDetail? {
@@ -62,6 +65,7 @@ class MovieDetailTask(val context: Context) :
 
         if (result != null) {
             movieDetailLoader.onResult(result)
+            progressBar.visibility = View.GONE
         }
     }
 

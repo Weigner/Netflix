@@ -1,7 +1,11 @@
 package br.com.weigner.netflix.util
 
+import android.annotation.SuppressLint
 import android.os.AsyncTask
 import android.util.Log
+import android.view.View
+import android.widget.ProgressBar
+import br.com.weigner.netflix.R
 import br.com.weigner.netflix.listeners.CategoryLoader
 import br.com.weigner.netflix.model.CategoryModel
 import br.com.weigner.netflix.model.MovieModel
@@ -14,13 +18,14 @@ import java.net.HttpURLConnection
 import java.net.MalformedURLException
 import java.net.URL
 
-class CategoryJsonDownloadTask :
+class CategoryJsonDownloadTask(@SuppressLint("StaticFieldLeak") val progressBar: ProgressBar) :
     AsyncTask<String?, Void?, List<CategoryModel>?>() {
 
     private lateinit var categoryLoader: CategoryLoader
 
     override fun onPreExecute() {
         super.onPreExecute()
+        progressBar.visibility = View.VISIBLE
     }
 
     override fun doInBackground(vararg url: String?): List<CategoryModel>? {
@@ -60,6 +65,7 @@ class CategoryJsonDownloadTask :
         super.onPostExecute(result)
         if (result != null) {
             categoryLoader.onResult(result)
+            progressBar.visibility = View.GONE
         }
     }
 

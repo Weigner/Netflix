@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Adapter
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.GridLayoutManager
@@ -34,6 +35,8 @@ class MovieActivity : AppCompatActivity(), MovieDetailLoader {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie)
 
+        val progressBar: ProgressBar = findViewById(R.id.progressBar)
+
         textTitle = findViewById(R.id.text_view_title)
         textDescription = findViewById(R.id.text_view_description)
         textCast = findViewById(R.id.text_view_cast)
@@ -54,7 +57,7 @@ class MovieActivity : AppCompatActivity(), MovieDetailLoader {
         recyclerView.layoutManager = GridLayoutManager(this, 3)
 
         val id = intent.extras?.getInt("id")
-        val movieDetailTask = MovieDetailTask(this)
+        val movieDetailTask = MovieDetailTask(this, progressBar)
         movieDetailTask.setMovieDetailLoader(this)
         movieDetailTask.execute("https://tiagoaguiar.co/api/netflix/${id}")
     }

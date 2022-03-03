@@ -3,6 +3,8 @@ package br.com.weigner.netflix
 import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import android.widget.ProgressBar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import br.com.weigner.netflix.adapter.MainAdapter
@@ -19,6 +21,7 @@ class MainActivity : AppCompatActivity(), CategoryLoader {
         setContentView(R.layout.activity_main)
 
         val recyclerView: RecyclerView = findViewById(R.id.recycler_view_main)
+        val progressBar: ProgressBar = findViewById(R.id.progressBar)
 
         val categories = mutableListOf<CategoryModel>()
 
@@ -26,7 +29,7 @@ class MainActivity : AppCompatActivity(), CategoryLoader {
         recyclerView.layoutManager = LinearLayoutManager(baseContext, RecyclerView.VERTICAL, false)
         recyclerView.adapter = mainAdapter
 
-        val categoryJsonDownloadTask = CategoryJsonDownloadTask()
+        val categoryJsonDownloadTask = CategoryJsonDownloadTask(progressBar)
         categoryJsonDownloadTask.setCategoryLoader(this)
         categoryJsonDownloadTask.execute("https://tiagoaguiar.co/api/netflix/home")
     }
